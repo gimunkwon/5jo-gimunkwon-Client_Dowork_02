@@ -12,4 +12,10 @@ public:
 	AMyPlayerControlloer();
 	
 	virtual void BeginPlay() override;
+	
+protected:
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Widget")
+	TSubclassOf<UUserWidget> InventoryWidgetClass;
+	UPROPERTY()
+	TObjectPtr<UUserWidget> InventoryWidgetInst;
 };

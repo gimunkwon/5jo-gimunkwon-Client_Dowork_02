@@ -29,7 +29,7 @@ void UInventoryWidget::NativeConstruct()
 		{
 			if (WBP_InvenSlot)
 			{
-				UUserWidget* NewSlot = CreateWidget<UUserWidget>(this, WBP_InvenSlot);
+				UInventorySlotWidget* NewSlot = CreateWidget<UInventorySlotWidget>(this, WBP_InvenSlot);
 				if (NewSlot)
 				{
 					Grid_Inven->AddChildToGrid(NewSlot, Row, Col);
@@ -44,13 +44,9 @@ void UInventoryWidget::NativeConstruct()
 
 bool UInventoryWidget::UpdateInventoryItem(UMyPlayerInventory* InventoryInst)
 {
-	UE_LOG(LogTemp,Warning,TEXT("UpdateInventoryItem"));
+	if (!InventoryInst) return false;
 	
-	if (!InventoryInst)
-	{
-		UE_LOG(LogTemp,Warning,TEXT("InventoryInst Is Null"))
-		return false;
-	}
+	UE_LOG(LogTemp,Warning,TEXT("UpdateInventoryItem"));
 	
 	TArray<UWidget*> ChildrenWidget = Grid_Inven->GetAllChildren();
 	

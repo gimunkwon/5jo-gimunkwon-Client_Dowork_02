@@ -16,6 +16,10 @@ UMyPlayerInventory::UMyPlayerInventory()
 void UMyPlayerInventory::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	Inventory.Emplace(ItemList.Potion);
+	Inventory.Emplace(ItemList.Gold);
+	Inventory.Emplace(ItemList.Sword);
 }
 
 

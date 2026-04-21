@@ -31,4 +31,6 @@ protected:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="InventorySettings")
 	int32 InventoryCapacity;
 	
+private:
+	FItem ItemList;
 };

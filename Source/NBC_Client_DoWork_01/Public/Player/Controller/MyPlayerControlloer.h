@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "UI/InventoryWidget.h"
 #include "MyPlayerControlloer.generated.h"
 
 class UInventoryWidget;
@@ -16,6 +17,7 @@ public:
 	AMyPlayerControlloer();
 	
 	virtual void BeginPlay() override;
+	UInventoryWidget* GetInventoryWidget() const {return InventoryWidgetInst;}
 	
 #pragma region Input
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Input")

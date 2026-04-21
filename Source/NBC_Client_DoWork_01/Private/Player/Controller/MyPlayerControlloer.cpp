@@ -27,18 +27,16 @@ void AMyPlayerControlloer::BeginPlay()
 	}
 	
 	// Widget
-	
 	if (InventoryWidgetClass)
 	{
 		InventoryWidgetInst = CreateWidget<UInventoryWidget>(this, InventoryWidgetClass);
 		if (InventoryWidgetInst)
 		{
-			AMyPlayer* MyOwner = Cast<AMyPlayer>(GetOwner());
+			AMyPlayer* MyOwner = Cast<AMyPlayer>(GetPawn());
 			
-			InventoryWidgetInst->AddToViewport();
 			if (MyOwner)
 			{
-				InventoryWidgetInst->UpdateInventoryItem(MyOwner->GetInventory());
+				InventoryWidgetInst->AddToViewport();
 			}
 			
 		}

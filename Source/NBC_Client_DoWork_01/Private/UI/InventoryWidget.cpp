@@ -1,6 +1,8 @@
 #include "UI/InventoryWidget.h"
 
 #include "Components/GridPanel.h"
+#include "Player/Inventory/MyPlayerInventory.h"
+#include "UI/InventorySlotWidget.h"
 
 void UInventoryWidget::NativeConstruct()
 {
@@ -40,8 +42,30 @@ void UInventoryWidget::NativeConstruct()
 	
 }
 
-void UInventoryWidget::UpdateInventoryItem(UMyPlayerInventory* InventoryInst)
+bool UInventoryWidget::UpdateInventoryItem(UMyPlayerInventory* InventoryInst)
 {
+	UE_LOG(LogTemp,Warning,TEXT("UpdateInventoryItem"));
 	
+	if (!InventoryInst)
+	{
+		UE_LOG(LogTemp,Warning,TEXT("InventoryInst Is Null"))
+		return false;
+	}
+	
+	TArray<UWidget*> ChildrenWidget = Grid_Inven->GetAllChildren();
+	
+	for (int32 i = 0; i < ChildrenWidget.Num(); i++)
+	{
+		UInventorySlotWidget* SlotWidget = Cast<UInventorySlotWidget>(ChildrenWidget[i]);
+		if (SlotWidget)
+		{
+			if (InventoryInst->Inventory.IsValidIndex(i))
+			{
+				SlotWidget->UpdateSlotImage(InventoryInst->Inventory[i].ItemImage);
+			}
+		}
+	}
+	
+	return true;
 }
 

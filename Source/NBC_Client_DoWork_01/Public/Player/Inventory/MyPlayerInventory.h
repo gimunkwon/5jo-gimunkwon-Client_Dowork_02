@@ -2,19 +2,11 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "DataTable/ItemDataTable.h"
 #include "MyPlayerInventory.generated.h"
 
 
-USTRUCT()
-struct FItem
-{
-	GENERATED_BODY()
-	
-	FName Potion;
-	FName Sword;
-	FName Gold;
-};
-
+struct FItemDataTable;
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class NBC_CLIENT_DOWORK_01_API UMyPlayerInventory : public UActorComponent
@@ -23,14 +15,14 @@ class NBC_CLIENT_DOWORK_01_API UMyPlayerInventory : public UActorComponent
 
 public:
 	UMyPlayerInventory();
+	UPROPERTY()
+	TArray<FItemDataTable> Inventory;
 protected:
 	virtual void BeginPlay() override;
-	
-	TArray<FItem> Inventory;
+	void AddInventoryItem();
 	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="InventorySettings")
 	int32 InventoryCapacity;
-	
-private:
-	FItem ItemList;
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="DataTable")
+	TObjectPtr<UDataTable> ItemDataTable;
 };

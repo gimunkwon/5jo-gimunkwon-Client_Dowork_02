@@ -5,7 +5,8 @@
 
 AMyPlayerControlloer::AMyPlayerControlloer()
 {
-	
+	bShowMouseCursor = true;
+	DefaultMouseCursor = EMouseCursor::Default;
 }
 
 void AMyPlayerControlloer::BeginPlay()
@@ -16,7 +17,10 @@ void AMyPlayerControlloer::BeginPlay()
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* SubSystem = Cast<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>()))
 		{
-			// AddMapping
+			if (IMC_Default)
+			{
+				SubSystem->AddMappingContext(IMC_Default,0);
+			}
 		}
 	}
 	

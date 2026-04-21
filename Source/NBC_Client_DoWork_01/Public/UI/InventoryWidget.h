@@ -4,9 +4,11 @@
 #include "Blueprint/UserWidget.h"
 #include "InventoryWidget.generated.h"
 
+class UInventoryInfoWidget;
 class UInventorySlotWidget;
 class UGridPanel;
 class UMyPlayerInventory;
+
 
 UCLASS()
 class NBC_CLIENT_DOWORK_01_API UInventoryWidget : public UUserWidget
@@ -15,12 +17,18 @@ class NBC_CLIENT_DOWORK_01_API UInventoryWidget : public UUserWidget
 	
 public:
 	virtual void NativeConstruct() override;
+	
 	bool UpdateInventoryItem(UMyPlayerInventory* InventoryInst);
+	
+	UFUNCTION()
+	void UpdateInfoItemWidget(FName SelectedItemName);
 protected:
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UGridPanel> Grid_Inven;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Widget")
 	TSubclassOf<UInventorySlotWidget> WBP_InvenSlot;
+	UPROPERTY(meta=(BindWidget))
+	TObjectPtr<UInventoryInfoWidget> WBP_ItemInfoWidget;
 	
 	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Grid")

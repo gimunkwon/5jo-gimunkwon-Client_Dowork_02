@@ -13,7 +13,8 @@ class NBC_CLIENT_DOWORK_01_API AMyPlayer : public ACharacter
 
 public:
 	AMyPlayer();
-
+	
+	FORCEINLINE UMyPlayerInventory* GetInventory() const {return InventoryAC;}
 protected:
 	virtual void BeginPlay() override;
 	

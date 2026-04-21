@@ -1,26 +1,22 @@
 #include "NBC_Client_DoWork_01/Public/Player/MyPlayer.h"
 
+#include "NBC_Client_DoWork_01/Public/Player/Inventory/MyPlayerInventory.h"
 
 
 AMyPlayer::AMyPlayer()
+	: InventoryAC(nullptr)
 {
+	PrimaryActorTick.bCanEverTick = false;
 	
-	PrimaryActorTick.bCanEverTick = true;
+	InventoryAC = CreateDefaultSubobject<UMyPlayerInventory>(TEXT("InventoryComponent"));
+	
 }
-
 
 void AMyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 	
 }
-
-
-void AMyPlayer::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-}
-
 
 void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {

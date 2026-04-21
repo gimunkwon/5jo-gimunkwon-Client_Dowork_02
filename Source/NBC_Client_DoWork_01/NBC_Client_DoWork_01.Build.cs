@@ -11,7 +11,7 @@ public class NBC_Client_DoWork_01 : ModuleRules
 		PublicDependencyModuleNames.AddRange(new string[]
 		{
 			"Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput"
-			,"UMG"
+			,"UMG","Paper2D"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

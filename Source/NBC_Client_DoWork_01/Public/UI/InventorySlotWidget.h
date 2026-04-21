@@ -14,7 +14,7 @@ class NBC_CLIENT_DOWORK_01_API UInventorySlotWidget : public UUserWidget
 	GENERATED_BODY()
 	
 public:
-	void UpdateSlotImage(UPaperSprite* SpriteImage);
+	void UpdateSlotImage(UPaperSprite* SpriteImage,FName SlotItemName);
 	virtual void NativeConstruct() override;
 	
 protected:
@@ -22,4 +22,9 @@ protected:
 	TObjectPtr<UImage> Image_Item;
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UButton> Btn_InvenSlot;
+	
+	UFUNCTION()
+	void OnButtonPressed();
+	
+	FName ItemName;
 };

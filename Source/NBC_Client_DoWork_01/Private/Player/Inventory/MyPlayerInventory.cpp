@@ -4,7 +4,11 @@
 
 UMyPlayerInventory::UMyPlayerInventory()
 {
-	PrimaryComponentTick.bCanEverTick = true;
+	PrimaryComponentTick.bCanEverTick = false;
+	
+	InventoryCapacity = 6;
+	
+	Inventory.SetNum(InventoryCapacity);
 }
 
 
@@ -16,9 +20,4 @@ void UMyPlayerInventory::BeginPlay()
 
 
 
-void UMyPlayerInventory::TickComponent(float DeltaTime, ELevelTick TickType,
-                                       FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-}
 

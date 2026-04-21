@@ -21,17 +21,7 @@ void UMyPlayerInventory::BeginPlay()
 	Super::BeginPlay();
 }
 
-FItemDataTable* UMyPlayerInventory::FindItemFromDataTable(FName ItemName)
-{
-	static const FString ContextString = "DataTableSearch";
-	
-	if (ItemDataTable)
-	{
-		FItemDataTable* FindRow = ItemDataTable->FindRow<FItemDataTable>(ItemName, ContextString);
-		return FindRow;
-	}
-	return nullptr;
-}
+
 
 void UMyPlayerInventory::AddInventoryItem(FName ItemName)
 {
@@ -53,7 +43,7 @@ void UMyPlayerInventory::AddInventoryItem(FName ItemName)
 			if (Inventory[i].ItemName.IsNone())
 			{
 				UE_LOG(LogTemp,Warning,TEXT("AddInventory"));
-				Inventory[i] = *FindItemFromDataTable(ItemName);
+				Inventory[i] = *FindItemFromDataTable(ItemDataTable,ItemName);
 				break;
 			}
 		}
@@ -63,6 +53,18 @@ void UMyPlayerInventory::AddInventoryItem(FName ItemName)
 	{
 		PC->GetInventoryWidget()->UpdateInventoryItem(this);
 	}
+}
+
+FItemDataTable* UMyPlayerInventory::FindItemFromDataTable(UDataTable* DataTable,FName ItemName)
+{
+	static const FString ContextString = "DataTableSearch";
+	
+	if (DataTable)
+	{
+		FItemDataTable* FindRow = DataTable->FindRow<FItemDataTable>(ItemName, ContextString);
+		return FindRow;
+	}
+	return nullptr;
 }
 
 

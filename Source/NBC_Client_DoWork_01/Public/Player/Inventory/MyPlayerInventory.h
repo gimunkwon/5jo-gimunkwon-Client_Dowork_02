@@ -21,6 +21,7 @@ public:
 	TMap<FName,FText> ItemInfo;
 	
 	void AddInventoryItem(FName ItemName);
+	static FItemDataTable* FindItemFromDataTable (UDataTable* DataTable,FName ItemName);
 protected:
 	virtual void BeginPlay() override;
 	
@@ -28,6 +29,4 @@ protected:
 	int32 InventoryCapacity;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="DataTable")
 	TObjectPtr<UDataTable> ItemDataTable;
-	
-	FItemDataTable* FindItemFromDataTable(FName ItemName);
 };

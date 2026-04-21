@@ -14,7 +14,7 @@ class NBC_CLIENT_DOWORK_01_API UInventoryWidget : public UUserWidget
 	
 public:
 	virtual void NativeConstruct() override;
-	void UpdateInventoryItem(UMyPlayerInventory* InventoryInst);
+	bool UpdateInventoryItem(UMyPlayerInventory* InventoryInst);
 protected:
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UGridPanel> Grid_Inven;

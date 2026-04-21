@@ -15,14 +15,19 @@ class NBC_CLIENT_DOWORK_01_API UMyPlayerInventory : public UActorComponent
 
 public:
 	UMyPlayerInventory();
+	
 	UPROPERTY()
 	TArray<FItemDataTable> Inventory;
+	TMap<FName,FText> ItemInfo;
+	
+	void AddInventoryItem(FName ItemName);
 protected:
 	virtual void BeginPlay() override;
-	void AddInventoryItem();
 	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="InventorySettings")
 	int32 InventoryCapacity;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="DataTable")
 	TObjectPtr<UDataTable> ItemDataTable;
+	
+	FItemDataTable* FindItemFromDataTable(FName ItemName);
 };

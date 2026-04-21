@@ -4,6 +4,7 @@
 #include "Blueprint/UserWidget.h"
 #include "InventoryWidget.generated.h"
 
+class UInventorySlotWidget;
 class UGridPanel;
 class UMyPlayerInventory;
 
@@ -19,7 +20,8 @@ protected:
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UGridPanel> Grid_Inven;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Widget")
-	TSubclassOf<UUserWidget> WBP_InvenSlot;
+	TSubclassOf<UInventorySlotWidget> WBP_InvenSlot;
+	
 	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Grid")
 	int32 Grid_MaxRow;

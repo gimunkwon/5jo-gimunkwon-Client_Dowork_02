@@ -4,6 +4,7 @@
 #include "GameFramework/PlayerController.h"
 #include "MyPlayerControlloer.generated.h"
 
+class UInventoryWidget;
 class UInputAction;
 class UInputMappingContext;
 
@@ -29,7 +30,7 @@ protected:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Widget")
 	TSubclassOf<UUserWidget> InventoryWidgetClass;
 	UPROPERTY()
-	TObjectPtr<UUserWidget> InventoryWidgetInst;
+	TObjectPtr<UInventoryWidget> InventoryWidgetInst;
 #pragma endregion
 	
 };

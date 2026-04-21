@@ -2,6 +2,8 @@
 #include "EnhancedInputSubsystems.h"
 #include "Blueprint/UserWidget.h"
 #include "Compute/ComputeSocket.h"
+#include "Player/MyPlayer.h"
+#include "UI/InventoryWidget.h"
 
 AMyPlayerControlloer::AMyPlayerControlloer()
 {
@@ -28,10 +30,17 @@ void AMyPlayerControlloer::BeginPlay()
 	
 	if (InventoryWidgetClass)
 	{
-		InventoryWidgetInst = CreateWidget<UUserWidget>(this, InventoryWidgetClass);
+		InventoryWidgetInst = CreateWidget<UInventoryWidget>(this, InventoryWidgetClass);
 		if (InventoryWidgetInst)
 		{
+			AMyPlayer* MyOwner = Cast<AMyPlayer>(GetOwner());
+			
 			InventoryWidgetInst->AddToViewport();
+			if (MyOwner)
+			{
+				InventoryWidgetInst->UpdateInventoryItem(MyOwner->GetInventory());
+			}
+			
 		}
 	}
 }

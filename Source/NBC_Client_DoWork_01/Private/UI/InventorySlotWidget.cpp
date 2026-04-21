@@ -29,4 +29,9 @@ void UInventorySlotWidget::UpdateSlotImage(UPaperSprite* SpriteImage,FName SlotI
 void UInventorySlotWidget::OnButtonPressed()
 {
 	UE_LOG(LogTemp,Warning,TEXT("CurrentSlot Item Name was %s"),*ItemName.ToString());
+	
+	if (OnButtonPressedOfItemName.IsBound())
+	{
+		OnButtonPressedOfItemName.Broadcast(ItemName);
+	}
 }

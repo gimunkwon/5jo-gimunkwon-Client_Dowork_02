@@ -18,7 +18,7 @@ class NBC_CLIENT_DOWORK_01_API UInventorySlotWidget : public UUserWidget
 	
 public:
 	void UpdateSlotImage(UPaperSprite* SpriteImage,FName SlotItemName);
-	void ClearSlotData(int32 index);
+	void ClearSlotData(int32 index, bool bIsUse);
 	
 	virtual void NativeConstruct() override;
 	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;

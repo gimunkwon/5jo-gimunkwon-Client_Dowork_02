@@ -4,6 +4,7 @@
 #include "Blueprint/UserWidget.h"
 #include "InventoryWidget.generated.h"
 
+class UTextBlock;
 class UImage;
 class UInventoryInfoWidget;
 class UInventorySlotWidget;
@@ -23,6 +24,8 @@ public:
 	
 	UFUNCTION()
 	void UpdateInfoItemWidget(FName SelectedItemName,UImage* SelectedItemImage);
+	UFUNCTION()
+	void UpdatePlayerTitleText();
 protected:
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UGridPanel> Grid_Inven;
@@ -30,6 +33,8 @@ protected:
 	TSubclassOf<UInventorySlotWidget> WBP_InvenSlot;
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UInventoryInfoWidget> WBP_ItemInfoWidget;
+	UPROPERTY(meta=(BindWidget))
+	TObjectPtr<UTextBlock> Text_PlayerTitle;
 	
 	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Grid")

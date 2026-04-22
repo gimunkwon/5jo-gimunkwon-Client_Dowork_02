@@ -1,6 +1,9 @@
 #include "UI/InventoryWidget.h"
 
 #include "Components/GridPanel.h"
+#include "Components/TextBlock.h"
+#include "Player/MyPlayer.h"
+#include "Player/Controller/MyPlayerControlloer.h"
 #include "Player/Inventory/MyPlayerInventory.h"
 #include "UI/InventoryInfoWidget.h"
 #include "UI/InventorySlotWidget.h"
@@ -74,6 +77,32 @@ void UInventoryWidget::UpdateInfoItemWidget(FName SelectedItemName,UImage* Selec
 	if (UInventoryInfoWidget* InfoWidget = Cast<UInventoryInfoWidget>(WBP_ItemInfoWidget))
 	{
 		InfoWidget->UpdateItemInfo(SelectedItemName,SelectedItemImage);
+	}
+}
+
+void UInventoryWidget::UpdatePlayerTitleText()
+{
+	if (Text_PlayerTitle)
+	{
+		if (AMyPlayerControlloer* PC = Cast<AMyPlayerControlloer>(GetOwningPlayer()))
+		{
+			if (AMyPlayer* MyOwner = Cast<AMyPlayer>(PC->GetPawn()))
+			{
+				FString CombineString = "";
+				
+				UE_LOG(LogTemp,Warning,TEXT("PlayerTitleUpdate..."));
+				for (auto it = MyOwner->GetPlayerTitle().CreateConstIterator(); it; ++it)
+				{
+					const UEnum* EnumPtr = StaticEnum<EPlayer_Title>();
+					FString EnumToString = EnumPtr->GetNameStringByValue((int64)*it);
+					
+					CombineString += EnumToString;
+					CombineString += TEXT("\n");
+					
+					Text_PlayerTitle->SetText(FText::FromString(CombineString));
+				}
+			}
+		}
 	}
 }
 

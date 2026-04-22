@@ -13,7 +13,7 @@ class NBC_CLIENT_DOWORK_01_API UInventoryInfoWidget : public UUserWidget
 	GENERATED_BODY()
 	
 public:
-	void UpdateItemInfo(FName SelectedItemName);
+	void UpdateItemInfo(FName SelectedItemName, UImage* SelectedImage);
 	
 protected:
 	UPROPERTY(meta=(BindWidget))
@@ -23,8 +23,6 @@ protected:
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UTextBlock> Text_ItemDescription;
 	
-	UPROPERTY()
-	TMap<FName,FText> ItemDescription;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="DataTable")
 	TObjectPtr<UDataTable> ItemDataTable;
 };

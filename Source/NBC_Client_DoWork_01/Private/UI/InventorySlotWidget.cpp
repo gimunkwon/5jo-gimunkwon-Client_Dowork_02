@@ -35,3 +35,18 @@ void UInventorySlotWidget::OnButtonPressed()
 		OnButtonPressedOfItemName.Broadcast(ItemName,Image_Item);
 	}
 }
+
+FReply UInventorySlotWidget::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+{
+	if (InMouseEvent.GetEffectingButton() == EKeys::RightMouseButton)
+	{
+		UE_LOG(LogTemp,Warning,TEXT("오른쪽 마우스 클릭 이벤트 발생!!"));
+		if (OnRightClicked.IsBound())
+		{
+			OnRightClicked.Broadcast(ItemName);
+		}
+		return FReply::Handled();
+	}
+	
+	return FReply::Unhandled();
+}

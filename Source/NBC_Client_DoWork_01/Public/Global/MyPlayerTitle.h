@@ -9,5 +9,4 @@ enum class EPlayer_Title : uint8
 	Priest,
 	Warrior,
 	Magician,
-	thief
 };

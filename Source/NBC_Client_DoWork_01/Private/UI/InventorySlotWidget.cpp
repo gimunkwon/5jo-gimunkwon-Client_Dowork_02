@@ -53,19 +53,40 @@ FReply UInventorySlotWidget::NativeOnMouseButtonDown(const FGeometry& InGeometry
 	return FReply::Unhandled();
 }
 
-void UInventorySlotWidget::ClearSlotData(int32 index)
+void UInventorySlotWidget::ClearSlotData(int32 index,bool bIsUse)
 {
-	ItemName = NAME_None;
+	AMyPlayer* MyOwner = Cast<AMyPlayer>(GetOwningPlayerPawn());
 	
-	if (Image_Item)
+	if (!bIsUse)
 	{
-		Image_Item->SetBrushResourceObject(nullptr);
-	}
-	// 인벤토리 TArray 해당 배열 인덱스 값 초기화
-	if (AMyPlayer* MyOwner = Cast<AMyPlayer>(GetOwningPlayerPawn()))
-	{
-		MyOwner->GetInventory()->DeleteItemFromInventory(index);
-	}
+		ItemName = NAME_None;
 	
-	UE_LOG(LogTemp,Warning,TEXT("슬롯 데이터 초기화 완료"));
+		if (Image_Item)
+		{
+			Image_Item->SetBrushResourceObject(nullptr);
+		}
+		// 인벤토리 TArray 해당 배열 인덱스 값 초기화
+		if (MyOwner)
+		{
+			MyOwner->GetInventory()->DeleteItemFromInventory(index);
+		}
+		UE_LOG(LogTemp,Warning,TEXT("슬롯 데이터 초기화 완료"));
+	}
+	else
+	{
+		if (MyOwner)
+		{
+			if (MyOwner->GetInventory()->UseItem(index))
+			{
+				ItemName = NAME_None;
+	
+				if (Image_Item)
+				{
+					Image_Item->SetBrushResourceObject(nullptr);
+				}
+				
+				UE_LOG(LogTemp,Warning,TEXT("슬롯 데이터 초기화 완료"));
+			}
+		}
+	}
 }

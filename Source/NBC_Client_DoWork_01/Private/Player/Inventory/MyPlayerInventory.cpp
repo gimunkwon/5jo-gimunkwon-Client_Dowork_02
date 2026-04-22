@@ -1,5 +1,6 @@
 #include "NBC_Client_DoWork_01/Public/Player/Inventory/MyPlayerInventory.h"
 
+#include "Player/MyPlayer.h"
 #include "Player/Controller/MyPlayerControlloer.h"
 #include "UObject/FastReferenceCollector.h"
 
@@ -86,6 +87,78 @@ void UMyPlayerInventory::DeleteItemFromInventory(int32 index)
 		Inventory[index] = FItemDataTable();
 	}
 }
+
+bool UMyPlayerInventory::UseItem(int32 index)
+{
+	if (!Inventory.IsValidIndex(index))
+	{
+		UE_LOG(LogTemp,Warning,TEXT("해당 인벤토리 [%d]에는 아이템이 존재하지 않습니다!!"),index);
+		return false;
+	}
+
+	AMyPlayer* MyPlayer = Cast<AMyPlayer>(GetOwner());
+	
+	
+	if (!MyPlayer) return false;
+	
+	if (!MyPlayer->GetPlayerTitle().Contains(EPlayer_Title::Newbie))
+	{
+		if (Inventory[index].ItemName == "Gold")
+		{
+			UEnum* Enumptr = StaticEnum<EPlayer_Title>();
+			if (Enumptr)
+			{
+				FString EnumToString = Enumptr->GetNameStringByValue(static_cast<int64>(EPlayer_Title::Newbie));
+				UE_LOG(LogTemp,Warning,TEXT("해당 아이템은 %s 칭호가 있어야 사용 가능합니다."),*EnumToString);
+			}
+			return false;
+		}
+	}
+	if (!MyPlayer->GetPlayerTitle().Contains(EPlayer_Title::Magician))
+	{
+		if (Inventory[index].ItemName == "MagicBook")
+		{
+			UEnum* Enumptr = StaticEnum<EPlayer_Title>();
+			if (Enumptr)
+			{
+				FString EnumToString = Enumptr->GetNameStringByValue(static_cast<int64>(EPlayer_Title::Magician));
+				UE_LOG(LogTemp,Warning,TEXT("해당 아이템은 %s 칭호가 있어야 사용 가능합니다."),*EnumToString);
+			}
+			return false;
+		}
+	}
+	if (!MyPlayer->GetPlayerTitle().Contains(EPlayer_Title::Warrior))
+	{
+		if (Inventory[index].ItemName == "Sword")
+		{
+			UEnum* Enumptr = StaticEnum<EPlayer_Title>();
+			if (Enumptr)
+			{
+				FString EnumToString = Enumptr->GetNameStringByValue(static_cast<int64>(EPlayer_Title::Warrior));
+				UE_LOG(LogTemp,Warning,TEXT("해당 아이템은 %s 칭호가 있어야 사용 가능합니다."),*EnumToString);
+			}
+			return false;
+		}
+	}
+	if (!MyPlayer->GetPlayerTitle().Contains(EPlayer_Title::Priest))
+	{
+		if (Inventory[index].ItemName == "Potion")
+		{
+			UEnum* Enumptr = StaticEnum<EPlayer_Title>();
+			if (Enumptr)
+			{
+				FString EnumToString = Enumptr->GetNameStringByValue(static_cast<int64>(EPlayer_Title::Priest));
+				UE_LOG(LogTemp,Warning,TEXT("해당 아이템은 %s 칭호가 있어야 사용 가능합니다."),*EnumToString);
+			}
+			return false;
+		}
+	}
+	
+	UE_LOG(LogTemp,Warning,TEXT("아이템 사용 완료!!"));
+	DeleteItemFromInventory(index);
+	return true;
+}
+
 
 
 

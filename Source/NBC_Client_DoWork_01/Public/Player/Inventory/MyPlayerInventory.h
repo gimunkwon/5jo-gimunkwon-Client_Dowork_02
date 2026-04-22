@@ -6,6 +6,8 @@
 #include "MyPlayerInventory.generated.h"
 
 
+class AMyPlayer;
+enum class EPlayer_Title : uint8;
 struct FItemDataTable;
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
@@ -18,11 +20,18 @@ public:
 	
 	UPROPERTY()
 	TArray<FItemDataTable> Inventory;
+	
 	TMap<FName,FText> ItemInfo;
 	
 	void AddInventoryItem(FName ItemName);
-	static FItemDataTable* FindItemFromDataTable (UDataTable* DataTable,FName ItemName);
 	void DeleteItemFromInventory(int32 index);
+	
+	bool UseItem(int32 index);
+	
+	static FItemDataTable* FindItemFromDataTable (UDataTable* DataTable,FName ItemName);
+	
+	
+	
 protected:
 	virtual void BeginPlay() override;
 	

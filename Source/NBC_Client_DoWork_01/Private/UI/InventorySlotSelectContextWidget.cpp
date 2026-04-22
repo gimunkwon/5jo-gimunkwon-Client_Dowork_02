@@ -25,6 +25,10 @@ void UInventorySlotSelectContextWidget::NativeConstruct()
 void UInventorySlotSelectContextWidget::OnUseButtonClicked()
 {
 	UE_LOG(LogTemp,Warning,TEXT("아이템 사용!"));
+	if (OnUseItemButton.IsBound())
+	{
+		OnUseItemButton.Broadcast();
+	}
 }
 
 void UInventorySlotSelectContextWidget::OnCloseButtonClicked()
@@ -40,4 +44,8 @@ void UInventorySlotSelectContextWidget::OnCloseButtonClicked()
 void UInventorySlotSelectContextWidget::OnDeleteButtonClicked()
 {
 	UE_LOG(LogTemp,Warning,TEXT("아이템 제거!"));
+	if (OnDeleteItemButton.IsBound())
+	{
+		OnDeleteItemButton.Broadcast();
+	}
 }

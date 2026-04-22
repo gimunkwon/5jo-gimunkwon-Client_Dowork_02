@@ -12,6 +12,8 @@ class NBC_CLIENT_DOWORK_01_API UInventorySlotSelectContextWidget : public UUserW
 {
 	GENERATED_BODY()
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnCloseButton);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnUseItemButton);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeleteItemButton);
 	
 public:
 	virtual void NativeConstruct() override;
@@ -25,6 +27,10 @@ public:
 	
 	UPROPERTY()
 	FOnCloseButton OnCloseButton;
+	UPROPERTY()
+	FOnUseItemButton OnUseItemButton;
+	UPROPERTY()
+	FOnDeleteItemButton OnDeleteItemButton;
 	
 protected:
 	UPROPERTY(meta=(BindWidget))

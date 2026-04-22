@@ -13,8 +13,6 @@ UMyPlayerInventory::UMyPlayerInventory()
 	Inventory.SetNum(InventoryCapacity);
 }
 
-
-
 void UMyPlayerInventory::BeginPlay()
 {
 	Super::BeginPlay();
@@ -35,8 +33,6 @@ void UMyPlayerInventory::BeginPlay()
 		UE_LOG(LogTemp,Warning,TEXT("Map Key : %s | Value : %s"),*i.Key.ToString(), *i.Value.ToString());
 	}
 }
-
-
 
 void UMyPlayerInventory::AddInventoryItem(FName ItemName)
 {
@@ -80,6 +76,15 @@ FItemDataTable* UMyPlayerInventory::FindItemFromDataTable(UDataTable* DataTable,
 		return FindRow;
 	}
 	return nullptr;
+}
+
+void UMyPlayerInventory::DeleteItemFromInventory(int32 index)
+{
+	if (Inventory.IsValidIndex(index))
+	{
+		UE_LOG(LogTemp,Warning,TEXT("인벤토리 배열 삭제 완료!!"));
+		Inventory[index] = FItemDataTable();
+	}
 }
 
 

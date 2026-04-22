@@ -8,6 +8,7 @@
 #include "Player/Controller/MyPlayerControlloer.h"
 #include "Player/Inventory/MyPlayerInventory.h"
 #include "UI/InventoryInfoWidget.h"
+#include "UI/InventorySlotSelectContextWidget.h"
 #include "UI/InventorySlotWidget.h"
 
 void UInventoryWidget::NativeConstruct()
@@ -48,6 +49,12 @@ void UInventoryWidget::NativeConstruct()
 	}
 	
 	ComboBox_PlayerTitle->OnSelectionChanged.AddDynamic(this, &UInventoryWidget::OnPlayerTitleComboxPressed);
+	if (MenuA_SelectItem)
+	{
+		MenuA_SelectItem->OnGetMenuContentEvent.BindDynamic(this, &UInventoryWidget::GetMenuAContext);
+	}
+	
+	CurrentChoiceSlot = nullptr;
 }
 
 bool UInventoryWidget::UpdateInventoryItem(UMyPlayerInventory* InventoryInst)
@@ -144,13 +151,62 @@ void UInventoryWidget::OnPlayerTitleComboxPressed(FString SelectedItem, ESelectI
 	}
 }
 
-void UInventoryWidget::OnRightClickedInvenSlot(FName SelectedSlotItem)
+void UInventoryWidget::OnRightClickedInvenSlot(FName SelectedSlotItem,UInventorySlotWidget* SelectedSlotWidget)
 {
 	UE_LOG(LogTemp,Warning,TEXT("Current Slot Item %s"),*SelectedSlotItem.ToString());
 	if (MenuA_SelectItem)
 	{
 		MenuA_SelectItem->Open(true);
+		CurrentChoiceSlot = SelectedSlotWidget;
 	}
 }
+
+void UInventoryWidget::OnClosedMenuA()
+{
+	if (MenuA_SelectItem)
+	{
+		UE_LOG(LogTemp,Warning,TEXT("메뉴를 닫습니다..."));
+		MenuA_SelectItem->Close();
+	}
+}
+
+UWidget* UInventoryWidget::GetMenuAContext()
+{
+	UInventorySlotSelectContextWidget* ContextWidget = CreateWidget<UInventorySlotSelectContextWidget>(GetOwningPlayer(),MenuA_SelectItem->MenuClass);
+	
+	if (ContextWidget)
+	{
+		UE_LOG(LogTemp,Warning,TEXT("메뉴앵커 생성및 바인딩"))
+		
+		ContextWidget->OnCloseButton.AddDynamic(this, &UInventoryWidget::OnClosedMenuA);
+		ContextWidget->OnUseItemButton.AddDynamic(this, &UInventoryWidget::UseItemFromSlot);
+		ContextWidget->OnDeleteItemButton.AddDynamic(this, &UInventoryWidget::DeleteItemFromSlot);
+	}
+	
+	return ContextWidget;
+}
+
+void UInventoryWidget::UseItemFromSlot()
+{
+	UE_LOG(LogTemp,Warning,TEXT("인벤토리 아이템 사용!"));
+	
+}
+
+void UInventoryWidget::DeleteItemFromSlot()
+{
+	UE_LOG(LogTemp,Warning,TEXT("인벤토리 아이템 제거!"));
+	
+	if (Grid_Inven)
+	{
+		if (Grid_Inven->HasChild(CurrentChoiceSlot))
+		{
+			CurrentChoiceSlot->ClearSlotData(Grid_Inven->GetChildIndex(CurrentChoiceSlot));
+		}
+	}
+	
+}
+
+
+
 
 

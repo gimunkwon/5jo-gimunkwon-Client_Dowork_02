@@ -22,6 +22,7 @@ public:
 	
 	void AddInventoryItem(FName ItemName);
 	static FItemDataTable* FindItemFromDataTable (UDataTable* DataTable,FName ItemName);
+	void DeleteItemFromInventory(int32 index);
 protected:
 	virtual void BeginPlay() override;
 	

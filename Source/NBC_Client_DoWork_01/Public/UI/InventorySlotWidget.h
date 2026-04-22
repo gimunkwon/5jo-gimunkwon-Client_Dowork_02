@@ -9,7 +9,7 @@ class UButton;
 class UPaperSprite;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnButtonPressed, FName, SelectedItem,UImage*, CurrentImage);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FBtnRightClicked, FName, CurrentSlotItem);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FBtnRightClicked, FName, CurrentSlotItem, UInventorySlotWidget*, SelectedWidgetInst);
 
 UCLASS()
 class NBC_CLIENT_DOWORK_01_API UInventorySlotWidget : public UUserWidget
@@ -18,6 +18,7 @@ class NBC_CLIENT_DOWORK_01_API UInventorySlotWidget : public UUserWidget
 	
 public:
 	void UpdateSlotImage(UPaperSprite* SpriteImage,FName SlotItemName);
+	void ClearSlotData(int32 index);
 	
 	virtual void NativeConstruct() override;
 	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;

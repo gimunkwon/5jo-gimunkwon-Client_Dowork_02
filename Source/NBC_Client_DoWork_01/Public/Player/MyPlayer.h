@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Global/MyPlayerTitle.h"
 #include "MyPlayer.generated.h"
 
 class UMyPlayerInventory;
@@ -15,12 +16,16 @@ public:
 	AMyPlayer();
 	
 	FORCEINLINE UMyPlayerInventory* GetInventory() const {return InventoryAC;}
+	FORCEINLINE const TSet<EPlayer_Title>& GetPlayerTitle() const {return PlayerTitle;}
+	void SetPlayerTitle(EPlayer_Title Player_Title);
 protected:
 	virtual void BeginPlay() override;
 	
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="ActorComponent")
 	TObjectPtr<UMyPlayerInventory> InventoryAC;
-
+	
+	// 칭호
+	TSet<EPlayer_Title> PlayerTitle;
 public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 };

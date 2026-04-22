@@ -4,6 +4,9 @@
 #include "Blueprint/UserWidget.h"
 #include "InventoryWidget.generated.h"
 
+class UMenuAnchor;
+class UComboBoxString;
+class UTextBlock;
 class UImage;
 class UInventoryInfoWidget;
 class UInventorySlotWidget;
@@ -23,6 +26,14 @@ public:
 	
 	UFUNCTION()
 	void UpdateInfoItemWidget(FName SelectedItemName,UImage* SelectedItemImage);
+	UFUNCTION()
+	void UpdatePlayerTitleText();
+	UFUNCTION()
+	void UpdatePlayerTitleToComboBox();
+	UFUNCTION()
+	void OnPlayerTitleComboxPressed(FString SelectedItem, ESelectInfo::Type SelectionType);
+	UFUNCTION()
+	void OnRightClickedInvenSlot(FName SelectedSlotItem);
 protected:
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UGridPanel> Grid_Inven;
@@ -30,6 +41,12 @@ protected:
 	TSubclassOf<UInventorySlotWidget> WBP_InvenSlot;
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UInventoryInfoWidget> WBP_ItemInfoWidget;
+	UPROPERTY(meta=(BindWidget))
+	TObjectPtr<UTextBlock> Text_PlayerTitle;
+	UPROPERTY(meta=(BindWidget))
+	TObjectPtr<UComboBoxString> ComboBox_PlayerTitle;
+	UPROPERTY(meta=(BindWidget))
+	TObjectPtr<UMenuAnchor> MenuA_SelectItem;
 	
 	
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Grid")
@@ -37,3 +54,4 @@ protected:
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Grid")
 	int32 Grid_MaxColumn;
 };
+

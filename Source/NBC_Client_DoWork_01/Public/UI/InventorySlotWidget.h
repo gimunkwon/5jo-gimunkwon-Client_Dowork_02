@@ -9,6 +9,7 @@ class UButton;
 class UPaperSprite;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnButtonPressed, FName, SelectedItem,UImage*, CurrentImage);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FBtnRightClicked, FName, CurrentSlotItem);
 
 UCLASS()
 class NBC_CLIENT_DOWORK_01_API UInventorySlotWidget : public UUserWidget
@@ -17,10 +18,14 @@ class NBC_CLIENT_DOWORK_01_API UInventorySlotWidget : public UUserWidget
 	
 public:
 	void UpdateSlotImage(UPaperSprite* SpriteImage,FName SlotItemName);
+	
 	virtual void NativeConstruct() override;
+	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
 	
 	UPROPERTY(BlueprintAssignable)
 	FOnButtonPressed OnButtonPressedOfItemName;
+	UPROPERTY(BlueprintAssignable)
+	FBtnRightClicked OnRightClicked;
 	
 protected:
 	UPROPERTY(meta=(BindWidget))

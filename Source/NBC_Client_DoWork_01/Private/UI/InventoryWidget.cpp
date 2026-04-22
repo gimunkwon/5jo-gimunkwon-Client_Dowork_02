@@ -189,7 +189,13 @@ UWidget* UInventoryWidget::GetMenuAContext()
 void UInventoryWidget::UseItemFromSlot()
 {
 	UE_LOG(LogTemp,Warning,TEXT("인벤토리 아이템 사용!"));
-	
+	if (Grid_Inven)
+	{
+		if (Grid_Inven->HasChild(CurrentChoiceSlot))
+		{
+			CurrentChoiceSlot->ClearSlotData(Grid_Inven->GetChildIndex(CurrentChoiceSlot),true);
+		}
+	}
 }
 
 void UInventoryWidget::DeleteItemFromSlot()
@@ -200,7 +206,7 @@ void UInventoryWidget::DeleteItemFromSlot()
 	{
 		if (Grid_Inven->HasChild(CurrentChoiceSlot))
 		{
-			CurrentChoiceSlot->ClearSlotData(Grid_Inven->GetChildIndex(CurrentChoiceSlot));
+			CurrentChoiceSlot->ClearSlotData(Grid_Inven->GetChildIndex(CurrentChoiceSlot),false);
 		}
 	}
 	

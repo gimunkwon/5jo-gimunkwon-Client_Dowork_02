@@ -11,7 +11,6 @@ UMyPlayerInventory::UMyPlayerInventory()
 	InventoryCapacity = 30;
 	
 	Inventory.SetNum(InventoryCapacity);
-	
 }
 
 
@@ -19,6 +18,22 @@ UMyPlayerInventory::UMyPlayerInventory()
 void UMyPlayerInventory::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	if (ItemDataTable)
+	{
+		static const FString ContextString = "DataTableSearch";
+		TArray<FItemDataTable*> TempRowArray;
+		ItemDataTable->GetAllRows(ContextString,TempRowArray);
+		for (int32 i = 0; i < TempRowArray.Num(); i++)
+		{
+			ItemInfo.Add(TempRowArray[i]->ItemName, TempRowArray[i]->ItemDescription);
+		}
+	}
+	
+	for (auto i : ItemInfo)
+	{
+		UE_LOG(LogTemp,Warning,TEXT("Map Key : %s | Value : %s"),*i.Key.ToString(), *i.Value.ToString());
+	}
 }
 
 

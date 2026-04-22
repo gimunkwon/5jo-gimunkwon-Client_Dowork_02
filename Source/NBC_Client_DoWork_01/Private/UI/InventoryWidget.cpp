@@ -24,7 +24,7 @@ void UInventoryWidget::NativeConstruct()
 		}
 	}
 	
-	UInventorySlotWidget* NewSlot = nullptr;
+	
 	
 	for (int32 Row = 0; Row < Grid_MaxRow; ++Row)
 	{
@@ -32,17 +32,16 @@ void UInventoryWidget::NativeConstruct()
 		{
 			if (WBP_InvenSlot)
 			{
-				NewSlot = CreateWidget<UInventorySlotWidget>(this, WBP_InvenSlot);
+				UInventorySlotWidget* NewSlot = CreateWidget<UInventorySlotWidget>(this, WBP_InvenSlot);
 				if (NewSlot)
 				{
 					Grid_Inven->AddChildToGrid(NewSlot, Row, Col);
+					NewSlot->OnButtonPressedOfItemName.AddDynamic(this, &UInventoryWidget::UpdateInfoItemWidget);
 				}
 				
 			}
 		}
 	}
-	
-	NewSlot->OnButtonPressedOfItemName.AddDynamic(this, &UInventoryWidget::UpdateInfoItemWidget);
 	
 }
 
@@ -69,12 +68,12 @@ bool UInventoryWidget::UpdateInventoryItem(UMyPlayerInventory* InventoryInst)
 	return true;
 }
 
-void UInventoryWidget::UpdateInfoItemWidget(FName SelectedItemName)
+void UInventoryWidget::UpdateInfoItemWidget(FName SelectedItemName,UImage* SelectedItemImage)
 {
+	UE_LOG(LogTemp,Warning,TEXT("아이템의 정보를 위젯에 갱신합니다."));
 	if (UInventoryInfoWidget* InfoWidget = Cast<UInventoryInfoWidget>(WBP_ItemInfoWidget))
 	{
-		InfoWidget->UpdateItemInfo(SelectedItemName);
-		UE_LOG(LogTemp,Warning,TEXT("아이템의 정보를 위젯에 갱신합니다."));
+		InfoWidget->UpdateItemInfo(SelectedItemName,SelectedItemImage);
 	}
 }
 

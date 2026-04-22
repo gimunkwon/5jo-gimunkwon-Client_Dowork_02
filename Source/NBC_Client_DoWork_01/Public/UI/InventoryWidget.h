@@ -4,6 +4,7 @@
 #include "Blueprint/UserWidget.h"
 #include "InventoryWidget.generated.h"
 
+class UImage;
 class UInventoryInfoWidget;
 class UInventorySlotWidget;
 class UGridPanel;
@@ -21,7 +22,7 @@ public:
 	bool UpdateInventoryItem(UMyPlayerInventory* InventoryInst);
 	
 	UFUNCTION()
-	void UpdateInfoItemWidget(FName SelectedItemName);
+	void UpdateInfoItemWidget(FName SelectedItemName,UImage* SelectedItemImage);
 protected:
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UGridPanel> Grid_Inven;

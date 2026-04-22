@@ -29,4 +29,6 @@ protected:
 	int32 InventoryCapacity;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="DataTable")
 	TObjectPtr<UDataTable> ItemDataTable;
+	UPROPERTY()
+	TMap<FName, FText> ItemDescription;
 };

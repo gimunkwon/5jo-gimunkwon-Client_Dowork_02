@@ -33,11 +33,15 @@ public:
 	UFUNCTION()
 	void OnPlayerTitleComboxPressed(FString SelectedItem, ESelectInfo::Type SelectionType);
 	UFUNCTION()
-	void OnRightClickedInvenSlot(FName SelectedSlotItem);
+	void OnRightClickedInvenSlot(FName SelectedSlotItem, UInventorySlotWidget* SelectedSlotWidget);
 	UFUNCTION()
 	void OnClosedMenuA();
 	UFUNCTION()
 	UWidget* GetMenuAContext();
+	UFUNCTION()
+	void UseItemFromSlot();
+	UFUNCTION()
+	void DeleteItemFromSlot();
 protected:
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UGridPanel> Grid_Inven;
@@ -57,5 +61,9 @@ protected:
 	int32 Grid_MaxRow;
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Grid")
 	int32 Grid_MaxColumn;
+	
+private:
+	UPROPERTY()
+	TObjectPtr<UInventorySlotWidget> CurrentChoiceSlot;
 };
 

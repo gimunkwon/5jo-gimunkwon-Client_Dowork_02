@@ -32,6 +32,6 @@ void UInventorySlotWidget::OnButtonPressed()
 	
 	if (OnButtonPressedOfItemName.IsBound())
 	{
-		OnButtonPressedOfItemName.Broadcast(ItemName);
+		OnButtonPressedOfItemName.Broadcast(ItemName,Image_Item);
 	}
 }

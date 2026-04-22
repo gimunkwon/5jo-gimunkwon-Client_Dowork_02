@@ -8,7 +8,7 @@ class UImage;
 class UButton;
 class UPaperSprite;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnButtonPressed, FName, SelectedItem);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnButtonPressed, FName, SelectedItem,UImage*, CurrentImage);
 
 UCLASS()
 class NBC_CLIENT_DOWORK_01_API UInventorySlotWidget : public UUserWidget

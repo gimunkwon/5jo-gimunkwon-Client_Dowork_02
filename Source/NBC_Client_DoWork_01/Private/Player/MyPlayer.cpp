@@ -9,9 +9,6 @@ AMyPlayer::AMyPlayer()
 {
 	PrimaryActorTick.bCanEverTick = false;
 	InventoryAC = CreateDefaultSubobject<UMyPlayerInventory>(TEXT("InventoryComponent"));
-	
-	PlayerTitle.Add(EPlayer_Title::Newbie);
-	PlayerTitle.Add(EPlayer_Title::Magician);
 }
 
 void AMyPlayer::BeginPlay()
@@ -36,6 +33,7 @@ void AMyPlayer::BeginPlay()
 		{
 			UE_LOG(LogTemp,Warning,TEXT("UpdatePlayerTitleText..."));
 			PC->GetInventoryWidget()->UpdatePlayerTitleText();
+			PC->GetInventoryWidget()->UpdatePlayerTitleToComboBox();
 		}
 	}
 }
@@ -45,3 +43,7 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
+void AMyPlayer::SetPlayerTitle(EPlayer_Title Player_Title)
+{
+	PlayerTitle.Add(Player_Title);
+}

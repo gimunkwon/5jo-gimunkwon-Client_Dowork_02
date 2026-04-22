@@ -17,6 +17,7 @@ public:
 	
 	FORCEINLINE UMyPlayerInventory* GetInventory() const {return InventoryAC;}
 	FORCEINLINE const TSet<EPlayer_Title>& GetPlayerTitle() const {return PlayerTitle;}
+	void SetPlayerTitle(EPlayer_Title Player_Title);
 protected:
 	virtual void BeginPlay() override;
 	

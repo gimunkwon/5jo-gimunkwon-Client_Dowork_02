@@ -34,6 +34,10 @@ public:
 	void OnPlayerTitleComboxPressed(FString SelectedItem, ESelectInfo::Type SelectionType);
 	UFUNCTION()
 	void OnRightClickedInvenSlot(FName SelectedSlotItem);
+	UFUNCTION()
+	void OnClosedMenuA();
+	UFUNCTION()
+	UWidget* GetMenuAContext();
 protected:
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UGridPanel> Grid_Inven;
